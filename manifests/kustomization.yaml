@@ -1,5 +1,5 @@
    commonLabels:
-     app: hello
+     app: hello-world
    resources:
    - deployment.yaml
    - configMap.yaml
