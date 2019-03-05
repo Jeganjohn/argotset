@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: argo-ci-
+spec:
+  entrypoint: argo-ci
+  arguments:
+    parameters:
+    - name: revision
+      value: master
+    - name: repo
+      value: https://github.com/Jeganjohn/argotset.git
+
+  templates:
+  - name: argo-ci
+    steps:
+    - - name: build
+        template: build-node
+
+  - name: build-node
+    inputs:
+      artifacts:
+      - name: code
+        path: .
+        git:
+          repo: "{{workflow.parameters.repo}}"
+          revision: "{{workflow.parameters.revision}}"
+    container:
+      image: my-python-app
+      workingDir: /app
+      command: [pip install -r requirements.txt && python ./index.py]    
