@@ -9,7 +9,7 @@ spec:
         app: argoci
     spec:
       containers:
-        - name: ci
+        - name: argo-ci
           image: "argoproj/argoci:latest"
           env:
           - name: IN_CLUSTER
